@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="gitmessage" default="build">
+    <target name="build">
+        <mkdir dir="target/gitmessage"/>
+        <!--<copy todir="target/gitmessage" overwrite="true">-->
+            <!--<fileset dir="module/"  />-->
+            <!--<fileset dir="conf/" />-->
+            <!--<fileset dir="lib/" />-->
+
+        <!--</copy>-->
+        <copydir src="${basedir}" dest="target/gitmessage">
+            <include name="lib/*"/>
+            <include name="module/*"/>
+            <include name="conf/*"/>
+        </copydir>
+        <zip basedir="target/gitmessage/"  zipfile="target/test.zip"/>
+    </target>
+</project>
