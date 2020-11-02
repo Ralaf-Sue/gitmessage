@@ -1,205 +1,214 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.3.4.RELEASE</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
-	<groupId>com.su</groupId>
-	<artifactId>gitmesage</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>gitmesage</name>
-	<description>Demo project for Spring Boot</description>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.3.4.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.su</groupId>
+    <artifactId>gitmesage</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>gitmesage</name>
+    <description>Demo project for Spring Boot</description>
 
-	<properties>
-		<java.version>11</java.version>
-	</properties>
+    <properties>
+        <java.version>8</java.version>
+    </properties>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-		</dependency>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
 
-		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.junit.vintage</groupId>
-					<artifactId>junit-vintage-engine</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
 
-	<build>
-		<!--1、git插件-->
-		<plugins>
-			<!--<plugin>-->
-				<!--<groupId>org.springframework.boot</groupId>-->
-				<!--<artifactId>spring-boot-maven-plugin</artifactId>-->
-			<!--</plugin>-->
-			<plugin>
-				<groupId>pl.project13.maven</groupId>
-				<artifactId>git-commit-id-plugin</artifactId>
-				<version>2.1.13</version>
-				<!--
+    <build>
+        <!--1、git插件-->
+        <plugins>
+            <!--<plugin>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-maven-plugin</artifactId>-->
+            <!--</plugin>-->
+            <plugin>
+                <groupId>pl.project13.maven</groupId>
+                <artifactId>git-commit-id-plugin</artifactId>
+                <version>2.1.13</version>
+                <!--
                      Ensure that the revision goal is invoked during the initialize
                      phase.
                 -->
-				<executions>
-					<execution>
-						<goals>
-							<goal>revision</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<!--
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>revision</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!--
                         Configure the location of the .git directory.
                     -->
-					<dotGitDirectory>${project.basedir}/../.git</dotGitDirectory>
-				</configuration>
-			</plugin>
+                    <dateFormat>yyyy-MM-dd HH:mm:ss</dateFormat>
+                    <dotGitDirectory>${project.basedir}/../.git</dotGitDirectory>
+                    <generateGitPropertiesFile>true</generateGitPropertiesFile>
+                    <!--指定"git.properties"文件的存放路径(相对于${project.basedir}的一个路径);-->
+                    <generateGitPropertiesFilename>conf/git.properties</generateGitPropertiesFilename>
 
-			<!--2、dependency插件，打包-->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>2.3</version>
-				<executions>
-					<execution>
-						<id>copy1</id>
-						<phase>package</phase>
-						<goals>
-							<goal>copy-dependencies</goal>
-						</goals>
-						<configuration>
-							<excludeGroupIds>${groupId}</excludeGroupIds>
-							<outputDirectory>lib</outputDirectory>
-						</configuration>
-					</execution>
-				<execution>
-					<id>copy2</id>
-					<phase>package</phase>
-					<goals>
-						<goal>copy</goal>
-					</goals>
-					<configuration>
-						<artifactItems>
-							<artifactItem>
-								<groupId>com.su</groupId>
-								<artifactId>gitmesage</artifactId>
-								<version>0.0.1-SNAPSHOT</version>
-							</artifactItem>
-						</artifactItems>
-						<outputDirectory>module</outputDirectory>
-					</configuration>
-				</execution>
-				</executions>
+                </configuration>
+            </plugin>
 
-				<configuration>
-					<includeScope>compile</includeScope>
-					<stripVersion>true</stripVersion>
-				</configuration>
-			</plugin>
+            <!--2、dependency插件，打包-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.3</version>
+                <executions>
+                    <execution>
+                        <id>copy1</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <excludeGroupIds>${groupId}</excludeGroupIds>
+                            <outputDirectory>lib</outputDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy2</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.su</groupId>
+                                    <artifactId>gitmesage</artifactId>
+                                    <version>0.0.1-SNAPSHOT</version>
+                                </artifactItem>
+                            </artifactItems>
+                            <outputDirectory>module</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
 
-			<!--3、antrun插件，整理文件，打成整包-->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.7</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>run</goal>
-						</goals>
-						<configuration>
-							<tasks>
-								<ant antfile="${basedir}/build.xml"/>
-							</tasks>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+                <configuration>
+                    <includeScope>compile</includeScope>
+                    <stripVersion>true</stripVersion>
+                </configuration>
+            </plugin>
+
+            <!--3、antrun插件，整理文件，打成整包-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <ant antfile="${basedir}/build.xml"/>
+                            </tasks>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
 
-				<!--4、jar插件 排除resource目录中文件-->
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-jar-plugin</artifactId>
-					<configuration>
-						<archive>
-							<manifest>
-								<!--<addClasspath>true</addClasspath>-->
-								<!-- 指定复制第三方 jar 的目标目录为 target/lib/-->
-							</manifest>
-								<manifestEntries>
-									<Class-Path>./</Class-Path>
-								</manifestEntries>
+            <!--4、jar插件 排除resource目录中文件-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <!--<addClasspath>true</addClasspath>-->
+                            <!-- 指定复制第三方 jar 的目标目录为 target/lib/-->
+                        </manifest>
+                        <manifestEntries>
+                            <Class-Path>./</Class-Path>
+                        </manifestEntries>
 
-						</archive>
-						<excludes>
-							<!--注意这玩意从编译结果目录开始算目录结构-->
-							<exclude>/*</exclude>
-						</excludes>
-					</configuration>
-				</plugin>
+                    </archive>
+                    <excludes>
+                        <!--注意这玩意从编译结果目录开始算目录结构-->
+                        <exclude>/*</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
 
-			<!--5、将配置文件打包到特定目录中-->
-			<plugin>
-				<artifactId>maven-resources-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>copy-resources</id>
-						<phase>validate</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>conf</outputDirectory>
-							<resources>
-								<resource>
-									<directory>src/main/resources</directory>
-									<filtering>true</filtering>
-								</resource>
-							</resources>
-						</configuration>
+            <!--5、将配置文件打包到特定目录中-->
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>conf</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/resources</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
 
-					</execution>
-				</executions>
-			</plugin>
+                    </execution>
+                </executions>
+            </plugin>
 
-			<!--7、clean 插件，清理文件的插件-->
-			<plugin>
-				<artifactId>maven-clean-plugin</artifactId>
-				<configuration>
-					<filesets>
-						<fileset>
-							<directory>lib</directory>
-						</fileset>
-						<fileset>
-							<directory>module</directory>
-						</fileset>
-						<fileset>
-							<directory>conf</directory>
-						</fileset>
+            <!--7、clean 插件，清理文件的插件-->
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>lib</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>module</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>conf</directory>
+                        </fileset>
 
-					</filesets>
-				</configuration>
-			</plugin>
-			</plugins>
-	</build>
+                    </filesets>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

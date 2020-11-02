@@ -13,6 +13,9 @@
             <include name="module/*"/>
             <include name="conf/*"/>
         </copydir>
+        <copy todir="target/gitmessage">
+            <fileset file="bin/startup.bat"/>
+        </copy>
         <zip basedir="target/gitmessage/"  zipfile="target/test.zip"/>
     </target>
 </project>

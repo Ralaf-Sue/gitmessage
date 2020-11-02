@@ -2,19 +2,22 @@ package com.su.gitmesage.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 /**
  * @author SuZuQi
- * @title: GitProperties
+ * @title: GitMessageProperties
  * @projectName gitmesage
  * @description: TODO
  * @date 2020/10/10
  */
-@Component
-@ConfigurationProperties(prefix = "git")
+@Component("gits")
+@ConfigurationProperties(prefix = "gits")
+@PropertySource("classpath:gitmessage.properties")
 @Data
-public class GitProperties {
+public class GitMessageProperties {
 
     private String tags ;
 
@@ -22,7 +25,7 @@ public class GitProperties {
 
     private String dirty ;
 
-    private String orginUrl ;
+    private String originUrl ;
 
     private String commitId ;
 
@@ -32,7 +35,7 @@ public class GitProperties {
 
     private String userName ;
 
-    private String comitTime  ;
+    private String commitTime  ;
 
 
 
