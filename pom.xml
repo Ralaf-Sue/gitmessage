@@ -81,67 +81,32 @@
                 </configuration>
             </plugin>
 
-            <!--2、dependency插件，打包-->
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.3</version>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.6</version>
                 <executions>
                     <execution>
-                        <id>copy1</id>
+                        <id>build-bin</id>
                         <phase>package</phase>
                         <goals>
-                            <goal>copy-dependencies</goal>
+                            <goal>single</goal>
                         </goals>
                         <configuration>
-                            <excludeGroupIds>${groupId}</excludeGroupIds>
-                            <outputDirectory>lib</outputDirectory>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>copy2</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>copy</goal>
-                        </goals>
-                        <configuration>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>com.su</groupId>
-                                    <artifactId>gitmesage</artifactId>
-                                    <version>0.0.1-SNAPSHOT</version>
-                                </artifactItem>
-                            </artifactItems>
-                            <outputDirectory>module</outputDirectory>
+                            <descriptors>
+                                <descriptor>assembly.xml</descriptor>
+                            </descriptors>
+                            <finalName>git-all</finalName>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <attach>false</attach>
                         </configuration>
                     </execution>
                 </executions>
-
-                <configuration>
-                    <includeScope>compile</includeScope>
-                    <stripVersion>true</stripVersion>
-                </configuration>
             </plugin>
+
 
             <!--3、antrun插件，整理文件，打成整包-->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.7</version>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <tasks>
-                                <ant antfile="${basedir}/build.xml"/>
-                            </tasks>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
 
 
             <!--4、jar插件 排除resource目录中文件-->
@@ -166,48 +131,7 @@
                 </configuration>
             </plugin>
 
-            <!--5、将配置文件打包到特定目录中-->
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy-resources</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>conf</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>src/main/resources</directory>
-                                    <filtering>true</filtering>
-                                </resource>
-                            </resources>
-                        </configuration>
-
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!--7、clean 插件，清理文件的插件-->
-            <plugin>
-                <artifactId>maven-clean-plugin</artifactId>
-                <configuration>
-                    <filesets>
-                        <fileset>
-                            <directory>lib</directory>
-                        </fileset>
-                        <fileset>
-                            <directory>module</directory>
-                        </fileset>
-                        <fileset>
-                            <directory>conf</directory>
-                        </fileset>
-
-                    </filesets>
-                </configuration>
-            </plugin>
+          
         </plugins>
     </build>
 
